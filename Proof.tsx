@@ -1,25 +1,35 @@
-import Link from "next/link";
-import { cityPages } from "@/lib/site";
 import { Section } from "./Section";
 
-export function CitiesGrid() {
+export function Proof() {
+  const items = [
+    {
+      title: "Positioning gap to exploit",
+      copy: "Competitors heavily emphasize quote buttons, vertical pages, and portfolio proof. National As Built already has national coverage and technical credibility — this redesign adds sharper messaging and conversion architecture."
+    },
+    {
+      title: "Operational trust points",
+      copy: "Founded in 2004, serving the United States, Puerto Rico, and Canada, with laser measurement, AutoCAD workflows, and DWG/PDF deliverables."
+    },
+    {
+      title: "Higher-value sales motion",
+      copy: "A dedicated enterprise path for multi-site retail, hospitality, and portfolio rollouts helps separate larger accounts from standard lead flow."
+    }
+  ];
+
   return (
     <Section
-      id="cities"
-      eyebrow="City domination"
-      title="50 high-intent landing pages ready for local search capture"
-      subtitle="Built as static routes so National As Built can rank for commercial as-built demand across major U.S. metros while routing everything into one centralized sales process."
-      className="bg-slate-50"
+      eyebrow="Why this wins"
+      title="Built to outperform brochure sites and quote-only competitors"
+      subtitle="The goal is not a prettier homepage. The goal is more calls, more qualified email leads, and more revenue from portfolio-scale opportunities."
     >
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-        {cityPages.slice(0, 15).map((city) => (
-          <Link key={city.slug} href={`/locations/${city.slug}`} className="card transition hover:-translate-y-0.5">
-            <div className="text-lg font-semibold text-slate-950">{city.city}, {city.state}</div>
-            <p className="mt-2 text-sm leading-6 text-slate-600">{city.region} • localized service page with strong CTA, pricing cues, and enterprise path.</p>
-          </Link>
+      <div className="grid gap-6 lg:grid-cols-3">
+        {items.map((item) => (
+          <div key={item.title} className="card">
+            <h3 className="text-xl font-semibold text-slate-950">{item.title}</h3>
+            <p className="mt-3 text-slate-600 leading-7">{item.copy}</p>
+          </div>
         ))}
       </div>
-      <p className="mt-6 text-sm text-slate-600">Plus {cityPages.length - 15} additional metro pages included in the codebase.</p>
     </Section>
   );
 }

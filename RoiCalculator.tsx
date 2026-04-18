@@ -3,48 +3,54 @@
 import { useMemo, useState } from "react";
 import { formatCurrency } from "@/lib/utils";
 
-const rateMap: Record<string, { low: number; high: number }> = {
-  commercial: { low: 0.35, high: 0.8 },
-  residential: { low: 0.2, high: 0.45 },
-  retail: { low: 0.4, high: 0.85 },
-  multiSite: { low: 0.38, high: 0.75 }
-};
+export function RoiCalculator() {
+  const [visitors, setVisitors] = useState(500);
+  const [conversionRate, setConversionRate] = useState(5);
+  const [closeRate, setCloseRate] = useState(30);
+  const [avgProjectValue, setAvgProjectValue] = useState(5000);
 
-export function QuoteCalculator() {
-  const [projectType, setProjectType] = useState<keyof typeof rateMap>("commercial");
-  const [squareFeet, setSquareFeet] = useState(5000);
-
-  const estimate = useMemo(() => {
-    const rates = rateMap[projectType];
-    return {
-      low: squareFeet * rates.low,
-      high: squareFeet * rates.high
-    };
-  }, [projectType, squareFeet]);
+  const result = useMemo(() => {
+    const leads = visitors * (conversionRate / 100);
+    const deals = leads * (closeRate / 100);
+    const monthlyRevenue = deals * avgProjectValue;
+    return { leads, deals, monthlyRevenue };
+  }, [visitors, conversionRate, closeRate, avgProjectValue]);
 
   return (
     <div className="card">
-      <div className="text-lg font-semibold text-slate-950">Instant estimate range</div>
-      <p className="mt-2 text-slate-600">Use this as a lead-generation anchor. Final pricing still depends on scope, complexity, site count, and deliverables.</p>
+      <div className="text-lg font-semibold text-slate-950">Revenue impact calculator</div>
+      <p className="mt-2 text-slate-600">Tailored to National As Built’s sales motion: traffic → leads → closed projects.</p>
       <div className="mt-6 grid gap-5 md:grid-cols-2">
         <div>
-          <label className="label">Project type</label>
-          <select className="input" value={projectType} onChange={(e) => setProjectType(e.target.value as keyof typeof rateMap)}>
-            <option value="commercial">Commercial</option>
-            <option value="residential">Residential</option>
-            <option value="retail">Retail / hospitality</option>
-            <option value="multiSite">Multi-site rollout</option>
-          </select>
+          <label className="label">Monthly visitors</label>
+          <input className="input" type="number" value={visitors} onChange={(e) => setVisitors(Number(e.target.value || 0))} />
         </div>
         <div>
-          <label className="label">Estimated square feet</label>
-          <input className="input" type="number" min={100} step={100} value={squareFeet} onChange={(e) => setSquareFeet(Number(e.target.value || 0))} />
+          <label className="label">Conversion rate (%)</label>
+          <input className="input" type="number" value={conversionRate} onChange={(e) => setConversionRate(Number(e.target.value || 0))} />
+        </div>
+        <div>
+          <label className="label">Close rate (%)</label>
+          <input className="input" type="number" value={closeRate} onChange={(e) => setCloseRate(Number(e.target.value || 0))} />
+        </div>
+        <div>
+          <label className="label">Average project value ($)</label>
+          <input className="input" type="number" value={avgProjectValue} onChange={(e) => setAvgProjectValue(Number(e.target.value || 0))} />
         </div>
       </div>
-      <div className="mt-6 rounded-2xl bg-slate-950 p-6 text-white">
-        <div className="text-sm uppercase tracking-[0.2em] text-brand-200">Estimated range</div>
-        <div className="mt-3 text-3xl font-semibold">{formatCurrency(estimate.low)} – {formatCurrency(estimate.high)}</div>
-        <p className="mt-3 text-sm leading-6 text-slate-300">Lead capture performs better when buyers can orient themselves before submitting a quote request.</p>
+      <div className="mt-6 grid gap-4 sm:grid-cols-3">
+        <div className="rounded-2xl bg-brand-50 p-5">
+          <div className="text-sm text-brand-700">Projected leads</div>
+          <div className="mt-1 text-2xl font-semibold">{result.leads.toFixed(0)}</div>
+        </div>
+        <div className="rounded-2xl bg-brand-50 p-5">
+          <div className="text-sm text-brand-700">Projected deals</div>
+          <div className="mt-1 text-2xl font-semibold">{result.deals.toFixed(0)}</div>
+        </div>
+        <div className="rounded-2xl bg-brand-50 p-5">
+          <div className="text-sm text-brand-700">Projected monthly revenue</div>
+          <div className="mt-1 text-2xl font-semibold">{formatCurrency(result.monthlyRevenue)}</div>
+        </div>
       </div>
     </div>
   );

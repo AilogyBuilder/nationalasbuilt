@@ -1,35 +1,46 @@
 import Link from "next/link";
-import { company, cityPages } from "@/lib/site";
+import { cityPages, company } from "@/lib/site";
 
-export function Header() {
+export function Footer() {
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
-      <div className="container-shell flex h-20 items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-600 font-bold text-white">NA</div>
+    <footer className="border-t border-slate-200 bg-slate-50">
+      <div className="container-shell py-12">
+        <div className="grid gap-10 md:grid-cols-4">
           <div>
-            <div className="font-semibold text-slate-950">{company.name}</div>
-            <div className="text-sm text-slate-500">Nationwide As-Built Surveys</div>
+            <div className="text-lg font-semibold">{company.name}</div>
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              Commercial and residential as-built surveys, Scan-to-CAD, Matterport, and portfolio rollout support.
+            </p>
           </div>
-        </Link>
-        <nav className="hidden items-center gap-6 text-sm font-medium text-slate-700 lg:flex">
-          <Link href="/#services">Services</Link>
-          <Link href="/#pricing">Pricing</Link>
-          <Link href="/#cities">Cities</Link>
-          <Link href="/enterprise">Enterprise</Link>
-          <a href={company.phoneHref} className="btn-secondary px-4 py-2">Call {company.phoneDisplay}</a>
-          <Link href="/#quote" className="btn-primary px-4 py-2">Get Quote</Link>
-        </nav>
-      </div>
-      <div className="border-t border-slate-200 bg-slate-950 text-white">
-        <div className="container-shell flex flex-wrap items-center justify-between gap-3 py-2 text-sm">
-          <p>Since {company.founded} • {company.coverage}</p>
-          <div className="flex items-center gap-4">
-            <a href={company.phoneHref} className="font-semibold text-white">Call {company.phoneDisplay}</a>
-            <a href={`mailto:${company.email}`} className="text-slate-200">{company.email}</a>
+          <div>
+            <div className="font-semibold text-slate-950">Contact</div>
+            <ul className="mt-3 space-y-2 text-sm text-slate-600">
+              <li><a href={company.phoneHref}>{company.phoneDisplay}</a></li>
+              <li><a href={`mailto:${company.email}`}>{company.email}</a></li>
+              <li>{company.location}</li>
+            </ul>
+          </div>
+          <div>
+            <div className="font-semibold text-slate-950">Top city pages</div>
+            <ul className="mt-3 space-y-2 text-sm text-slate-600">
+              {cityPages.slice(0, 5).map((c) => (
+                <li key={c.slug}><Link href={`/locations/${c.slug}`}>{c.city}, {c.state}</Link></li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <div className="font-semibold text-slate-950">Enterprise funnel</div>
+            <ul className="mt-3 space-y-2 text-sm text-slate-600">
+              <li><Link href="/enterprise">Portfolio programs</Link></li>
+              <li><Link href="/#quote">Request proposal</Link></li>
+              <li><a href={`mailto:${company.hrEmail}`}>Vendor / surveyor inquiries</a></li>
+            </ul>
           </div>
         </div>
+        <div className="mt-10 border-t border-slate-200 pt-6 text-sm text-slate-500">
+          © {new Date().getFullYear()} {company.name}. Built for high-intent lead capture and portfolio growth.
+        </div>
       </div>
-    </header>
+    </footer>
   );
 }

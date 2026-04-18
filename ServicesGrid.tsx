@@ -1,20 +1,22 @@
-export function StatsStrip() {
-  const stats = [
-    { label: "Coverage", value: "50 states + PR + Canada" },
-    { label: "Founded", value: "2004" },
-    { label: "Core deliverables", value: "DWG, PDF, Dropbox" },
-    { label: "Positioning", value: "Nationwide as-built intelligence" }
-  ];
+import { services } from "@/lib/site";
+import { Section } from "./Section";
+
+export function ServicesGrid() {
   return (
-    <section className="border-b border-slate-200 bg-white">
-      <div className="container-shell grid gap-4 py-6 md:grid-cols-4">
-        {stats.map((s) => (
-          <div key={s.label} className="rounded-2xl border border-slate-200 px-5 py-4">
-            <div className="text-sm font-medium text-slate-500">{s.label}</div>
-            <div className="mt-1 font-semibold text-slate-950">{s.value}</div>
+    <Section
+      id="services"
+      eyebrow="Service stack"
+      title="Built for real-world preconstruction, renovation, and compliance needs"
+      subtitle="The live site already shows strong technical breadth. This version reframes those services around buyer outcomes so the site converts better."
+    >
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {services.map((service) => (
+          <div key={service.title} className="card">
+            <h3 className="text-xl font-semibold text-slate-950">{service.title}</h3>
+            <p className="mt-3 text-slate-600 leading-7">{service.description}</p>
           </div>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
