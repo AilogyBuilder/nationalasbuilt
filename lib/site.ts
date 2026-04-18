@@ -18,26 +18,40 @@ export const services = [
     title: "Commercial As-Built Surveys",
     description: "Laser-measured field surveys and drafting for offices, retail, hospitality, education, industrial, and municipal projects."
   },
+      slug: "commercial-as-built-surveys",
+
   {
     title: "Residential Surveys",
+        slug: "residential-surveys",
+
     description: "Accurate existing-conditions documentation for remodels, additions, permitting, and property records."
   },
   {
     title: "Scan-to-CAD",
+        slug: "scan-to-cad",
+
+  
+
     description: "Turn on-site laser measurements into clean AutoCAD deliverables aligned to project scope and standards."
   },
   {
     title: "Matterport 3D Virtual Tours",
+        slug: "3d-virtual-tours",
+
     description: "Remote walkthroughs and visual documentation for stakeholders who need faster review and less site friction."
   },
   {
     title: "ADA, Roof, Structural, and Equipment Surveys",
+        slug: "specialized-surveys",
+
     description: "Discipline-specific surveys for compliance, renovation, and planning decisions."
   },
   {
     title: "Lease Area Verification and Permit Assistance",
     description: "Documentation support for leasing accuracy, permitting, and preconstruction planning."
   }
+    slug: "lease-area-verification-and-permit-assistance",
+
 ];
 
 export const pricingPackages = [
@@ -45,6 +59,8 @@ export const pricingPackages = [
     name: "Essentials",
     price: "$0.20–$0.40 / sq ft",
     target: "Straightforward spaces and early-stage planning",
+        slug: "3d-virtual-tours",
+
     bullets: ["Field measurement", "Floor plans", "DWG + PDF delivery", "Standard turnaround"]
   },
   {
