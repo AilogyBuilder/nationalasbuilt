@@ -1,11 +1,16 @@
 import type { Config } from "tailwindcss";
+
 const config: Config = {
-  content: ["./app/**/*.{ts,tsx}","./components/**/*.{ts,tsx}"],
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./lib/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
     extend: {
       colors: {
         navy: {
-          50: "#eef2f9",
+          50:  "#eef2f9",
           100: "#d0dcf0",
           200: "#a2b9e1",
           300: "#6d8fcb",
@@ -17,7 +22,7 @@ const config: Config = {
           900: "#040e1f",
         },
         steel: {
-          50: "#f4f6f9",
+          50:  "#f4f6f9",
           100: "#e2e7ef",
           200: "#c5cede",
           300: "#9aaac0",
@@ -29,7 +34,7 @@ const config: Config = {
           900: "#0c1118",
         },
         silver: {
-          50: "#f8f9fb",
+          50:  "#f8f9fb",
           100: "#edf0f5",
           200: "#d8dde8",
           300: "#b8c0d0",
@@ -42,11 +47,12 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ["var(--font-display)"],
-        body: ["var(--font-body)"],
+        display: ["var(--font-display)", "Georgia", "serif"],
+        body:    ["var(--font-body)", "system-ui", "sans-serif"],
       },
     },
   },
   plugins: [],
 };
+
 export default config;
